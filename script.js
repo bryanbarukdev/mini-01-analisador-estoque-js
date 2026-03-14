@@ -36,3 +36,15 @@ const produtos = [
         categoria: "alimento"
     }
 ];
+
+let divContainer = document.querySelector('#div1');
+
+function quantidadeProdutos() {
+    produtos.forEach(produto => {
+div1.innerHTML += produto.nome + ": " + produto.quantidade + "<br>" 
+}
+);
+}
+
+quantidadeProdutos();
+
