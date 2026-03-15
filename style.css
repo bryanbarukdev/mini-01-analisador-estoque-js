@@ -1,16 +1,51 @@
-body{
+body {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     align-items: center;
 }
-#div1{
+
+.div{
+    margin-left: 20px;
     background-color: #ed143c2c;
     border-radius: 20px;
     align-self: end;
     font-weight: 600;
     font-size: 17px;
     padding: 20px;
-    width: 150px;
+    width: 180px;
 }
+
 .nomeproduto {
     color: crimson;
+}
+
+.botaoacao {
+    padding: 10px 15px;
+    font-size: 13px;
+    border-radius: 15px;
+    width: 100%;
+    border: 3px solid rgba(175, 16, 48, 0.534);
+    margin-bottom: 10px;
+    background-color: crimson;
+    color: white;
+    font-weight: 600;
+    align-self: center;
+}
+
+.container {
+    display: flex;
+    justify-content: start;
+    gap: 10px;
+}
+
+h1 {
+    margin-left: 20px;
+}
+
+.titulodiv {
+    margin: 0 auto;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    text-align: center;
+    border-bottom: 1.5px solid #ed143c88;
+    color: rgb(207, 66, 89);
 }
