@@ -41,10 +41,9 @@ let divContainer = document.querySelector('#div1');
 
 function quantidadeProdutos() {
     produtos.forEach(produto => {
-div1.innerHTML += produto.nome + ": " + produto.quantidade + "<br>" 
+div1.innerHTML += `<span class="nomeproduto">${produto.nome}</span>: ${produto.quantidade} <br>`
 }
 );
 }
 
 quantidadeProdutos();
-

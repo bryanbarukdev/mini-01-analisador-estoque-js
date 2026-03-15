@@ -1,0 +1,16 @@
+body{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    align-items: center;
+}
+#div1{
+    background-color: #ed143c2c;
+    border-radius: 20px;
+    align-self: end;
+    font-weight: 600;
+    font-size: 17px;
+    padding: 20px;
+    width: 150px;
+}
+.nomeproduto {
+    color: crimson;
+}
