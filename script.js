@@ -37,20 +37,46 @@ const produtos = [
     }
 ];
 
+
+
+
 let divContainer = document.querySelector('#div1');
+let BtnCalculaTotal = document.querySelector('#BtnCalculaTotal');
 
 function quantidadeProdutos() {
     produtos.forEach(produto => {
-        div1.innerHTML += `<span class="nomeproduto">${produto.nome}</span>: ${produto.quantidade} <br>`
-    }
-    );
-}
-function quantidadeProdutos2() {
-    produtos.forEach(produto => {
-        div2.innerHTML += `<span class="nomeproduto">${produto.nome}</span>: ${produto.quantidade} <br>`
+        div1.innerHTML += `<span class="nomeproduto">${produto.nome}</span>: ${produto.quantidade} unidades<br>`
     }
     );
 }
 
+function calcularValorTotalPorCategoria() {
+    produtos.forEach(produto => {
+        div2.innerHTML += `<span class="nomeproduto">${produto.nome}</span>: R$${(produto.quantidade * produto.preco).toFixed(2)} / R$${produto.preco} Cada <br> <hr>`
+    }
+    );
+}
+
+function calcularValorTotalPorCategoria() {
+    let totalPorCategoria = {}
+    
+    produtos.forEach(produto => {
+        let categoria = produto.categoria
+        let valor = produto.preco * produto.quantidade
+        
+        if (totalPorCategoria[categoria]) {
+            totalPorCategoria[categoria] += valor
+        } else {
+            totalPorCategoria[categoria] = valor
+        }
+        div2.innerHTML += `<span class="nomeproduto">${produto.nome}</span>: R$${(produto.quantidade * produto.preco).toFixed(2)} / R$${produto.preco} Cada <br> <hr>`
+    })
+    
+    console.log(totalPorCategoria)
+}
+
+BtnCalculaTotal.addEventListener('click', function () {
+    calcularValorTotalPorCategoria();
+});
+
 quantidadeProdutos();
-quantidadeProdutos2();

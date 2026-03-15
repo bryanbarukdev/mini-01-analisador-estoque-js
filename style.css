@@ -1,6 +1,7 @@
 body {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     align-items: center;
+    background-color: rgba(255, 0, 43, 0.103);
 }
 
 .div{
@@ -11,7 +12,11 @@ body {
     font-weight: 600;
     font-size: 17px;
     padding: 20px;
-    width: 180px;
+    width: 270px;
+}
+
+#div2 {
+    width: 320px;
 }
 
 .nomeproduto {
