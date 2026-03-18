@@ -37,11 +37,11 @@ const produtos = [
     }
 ];
 
-
-
-
 let divContainer = document.querySelector('#div1');
-let BtnCalculaTotal = document.querySelector('#BtnCalculaTotal');
+let BtnCalculaTotalUnidade = document.querySelector('#BtnCalculaTotalUnidade');
+let BtnCalculaTotalCategoria = document.querySelector('#calcularValorTotalPorCategoria');
+let BtnListagem = document.querySelector('#BtnListagem');
+
 
 function quantidadeProdutos() {
     produtos.forEach(produto => {
@@ -50,33 +50,44 @@ function quantidadeProdutos() {
     );
 }
 
-function calcularValorTotalPorCategoria() {
+function calcularValorTotalPorUnidade() {
     produtos.forEach(produto => {
-        div2.innerHTML += `<span class="nomeproduto">${produto.nome}</span>: R$${(produto.quantidade * produto.preco).toFixed(2)} / R$${produto.preco} Cada <br> <hr>`
+        div2.innerHTML += `<span class="nomeproduto">${produto.nome}</span>: R$${(produto.quantidade * produto.preco).toFixed(2)} / Cada: R$${produto.preco} <br> <hr style="border: 1px solid #ed143c88;">`
     }
     );
 }
 
 function calcularValorTotalPorCategoria() {
     let totalPorCategoria = {}
-    
+
     produtos.forEach(produto => {
         let categoria = produto.categoria
         let valor = produto.preco * produto.quantidade
-        
+
         if (totalPorCategoria[categoria]) {
             totalPorCategoria[categoria] += valor
         } else {
             totalPorCategoria[categoria] = valor
         }
-        div2.innerHTML += `<span class="nomeproduto">${produto.nome}</span>: R$${(produto.quantidade * produto.preco).toFixed(2)} / R$${produto.preco} Cada <br> <hr>`
     })
-    
+
+    for (const categoria in totalPorCategoria) {
+        div3.innerHTML += `<span class="nomeproduto">${categoria}</span>: R$${(totalPorCategoria[categoria])} <br> <hr style="border: 1px solid #ed143c88;">`
+    }
+
     console.log(totalPorCategoria)
 }
 
-BtnCalculaTotal.addEventListener('click', function () {
+BtnCalculaTotalUnidade.addEventListener('click', function () {
+    calcularValorTotalPorUnidade();
+});
+
+BtnCalculaTotalCategoria.addEventListener('click', function () {
     calcularValorTotalPorCategoria();
 });
 
-quantidadeProdutos();
+BtnListagem.addEventListener('click', function () {
+    quantidadeProdutos();
+});
+
+

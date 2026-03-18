@@ -34,6 +34,7 @@ body {
     color: white;
     font-weight: 600;
     align-self: center;
+    cursor: pointer;
 }
 
 .container {
@@ -54,3 +55,4 @@ h1 {
     border-bottom: 1.5px solid #ed143c88;
     color: rgb(207, 66, 89);
 }
+
