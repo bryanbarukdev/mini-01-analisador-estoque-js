@@ -4,19 +4,45 @@ body {
     background-color: rgba(255, 0, 43, 0.103);
 }
 
-.div{
-    margin-left: 20px;
+.div {
+    margin-left: 10px;
     background-color: #ed143c2c;
     border-radius: 20px;
-    align-self: end;
+    align-self: start;
     font-weight: 600;
     font-size: 17px;
     padding: 20px;
-    width: 270px;
+    width: 400px;
+    position: sticky;
+    top: 20px; 
+    z-index: 100; 
+}
+
+#div1 {
+    width: 250px;
 }
 
 #div2 {
     width: 320px;
+}
+
+#div3 {
+    width: 240px;
+}
+
+.reposicao {
+    color: crimson;
+}
+
+.msg{
+    font-size: 14px;
+    line-height: 0;
+    color:rgb(70, 70, 70);
+    background-color: rgba(220, 20, 60, 0.089);
+    padding: 10px;
+    border-radius: 20px;
+    text-align: center;
+    width: 100%;
 }
 
 .nomeproduto {
@@ -34,6 +60,7 @@ body {
     color: white;
     font-weight: 600;
     align-self: center;
+    cursor: pointer;
 }
 
 .container {
