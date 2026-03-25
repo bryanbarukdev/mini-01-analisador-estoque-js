@@ -141,53 +141,187 @@ const produtos = [
         nome: "Feijão",
         preco: 12.80,
         quantidade: 12,
-        categoria: "alimento"
+        categoria: "alimento",
+        promocao: false
     }
 ];
 
+// Selecionando os elementos corretos
+let divListagem = document.querySelector('#div1');
+let divReposicao = document.querySelector('#div4');
+let divPromocao = document.querySelector('#div5');
+let divTotalUnidade = document.querySelector('#div2');
+let divTotalCategoria = document.querySelector('#div3');
 
+// Selecionando os botões pelos IDs corretos
+let btnListagem = document.querySelector('#BtnListagem');
+let btnListagemRepo = document.querySelector('#BtnListagemRepo');
+let btnListagemPromo = document.querySelector('#BtnListagemPromo');
+let btnCalculaTotalUnidade = document.querySelector('#BtnCalculaTotalUnidade');
+let btnCalculaTotalCategoria = document.querySelector('#calcularValorTotalPorCategoria');
 
-
-let divContainer = document.querySelector('#div1');
-let BtnCalculaTotal = document.querySelector('#BtnCalculaTotal');
-
-function quantidadeProdutos() {
-    produtos.forEach(produto => {
-        if (produto.quantidade < 5) {
-            div4.innerHTML += `<span class="nomeproduto">${produto.nome}</span>: ${produto.quantidade} Unidades <span class="reposicao">[REPOSIÇÃO]</span><br>`;
-        } else {
-            div4.innerHTML += `<span class="nomeproduto">${produto.nome}</span>: ${produto.quantidade} Unidades<br>`;
-        }
-    });
+// Função para limpar o conteúdo de uma div
+function limparDiv(div) {
+    div.innerHTML = `<h2 class="titulodiv">${div.querySelector('h2') ? div.querySelector('h2').innerText : ''}</h2>`;
 }
 
-function calcularValorTotalPorUnidade() {
-    produtos.forEach(produto => {
-        div2.innerHTML += `<span class="nomeproduto">${produto.nome}</span>: R$${(produto.quantidade * produto.preco).toFixed(2)} / R$${produto.preco} Cada <br> <hr>`
-    }
-    );
-}
-
-function calcularValorTotalPorCategoria() {
-    let totalPorCategoria = {}
+// Função para listar todos os produtos
+function listarProdutos() {
+    limparDiv(divListagem);
+    let conteudo = divListagem.querySelector('h2').outerHTML;
     
     produtos.forEach(produto => {
-        let categoria = produto.categoria
-        let valor = produto.preco * produto.quantidade
+        let precoComDesconto = produto.promocao ? (produto.preco * 0.9).toFixed(2) : produto.preco.toFixed(2);
+        let textoPromocao = produto.promocao ? ` <span style="color: green;">[PROMOÇÃO -10%: R$${precoComDesconto}]</span>` : '';
+        conteudo += `<div class="produto-item">
+            <span class="nomeproduto">${produto.nome}</span>: 
+            R$${produto.preco.toFixed(2)} - 
+            ${produto.quantidade} unidades
+            ${textoPromocao}
+        </div><hr>`;
+    });
+    
+    divListagem.innerHTML = conteudo;
+}
+
+// Função para listar produtos que precisam de reposição (quantidade < 5)
+function listarReposicao() {
+    limparDiv(divReposicao);
+    let conteudo = divReposicao.querySelector('h2').outerHTML;
+    
+    produtos.forEach(produto => {
+        if (produto.quantidade < 5) {
+            conteudo += `<div class="produto-item">
+                <span class="nomeproduto">${produto.nome}</span>: 
+                ${produto.quantidade} Unidades 
+                <span class="reposicao">[REPOSIÇÃO]</span>
+            </div><hr>`;
+        }
+    });
+    
+    if (conteudo === divReposicao.querySelector('h2').outerHTML) {
+        conteudo += "<p>Nenhum produto precisa de reposição no momento.</p>";
+    }
+    
+    divReposicao.innerHTML = conteudo;
+}
+
+// Função para listar produtos em promoção
+function listarPromocao() {
+    limparDiv(divPromocao);
+    let conteudo = divPromocao.querySelector('h2').outerHTML;
+    let encontrouPromocao = false;
+    
+    produtos.forEach(produto => {
+        if (produto.promocao) {
+            encontrouPromocao = true;
+            let precoComDesconto = (produto.preco * 0.9).toFixed(2);
+            conteudo += `<div class="produto-item">
+                <span class="nomeproduto">${produto.nome}</span>: 
+                De R$${produto.preco.toFixed(2)} por 
+                <span style="color: red; font-weight: bold;">R$${precoComDesconto}</span>
+                <span style="color: green;"> [10% OFF]</span>
+            </div><hr>`;
+        }
+    });
+    
+    if (!encontrouPromocao) {
+        conteudo += "<p>Nenhum produto em promoção no momento.</p>";
+    }
+    
+    divPromocao.innerHTML = conteudo;
+}
+
+// Função para calcular valor total por unidade
+function calcularValorTotalPorUnidade() {
+    limparDiv(divTotalUnidade);
+    let conteudo = divTotalUnidade.querySelector('h2').outerHTML;
+    let totalGeral = 0;
+    
+    produtos.forEach(produto => {
+        let totalProduto = produto.quantidade * produto.preco;
+        totalGeral += totalProduto;
+        conteudo += `<div class="produto-item">
+            <span class="nomeproduto">${produto.nome}</span>: 
+            R$${totalProduto.toFixed(2)} 
+            <span style="font-size: 0.8em; color: gray;">(R$${produto.preco.toFixed(2)} cada)</span>
+        </div><hr>`;
+    });
+    
+    conteudo += `<div class="total-geral" style="margin-top: 10px; font-weight: bold; font-size: 1.2em;">
+        TOTAL GERAL DO ESTOQUE: R$${totalGeral.toFixed(2)}
+    </div>`;
+    
+    divTotalUnidade.innerHTML = conteudo;
+}
+
+// Função para calcular valor total por categoria
+function calcularValorTotalPorCategoria() {
+    limparDiv(divTotalCategoria);
+    let totalPorCategoria = {};
+    let totalGeral = 0;
+    
+    produtos.forEach(produto => {
+        let categoria = produto.categoria;
+        let valor = produto.preco * produto.quantidade;
+        totalGeral += valor;
         
         if (totalPorCategoria[categoria]) {
             totalPorCategoria[categoria] += valor;
         } else {
             totalPorCategoria[categoria] = valor;
         }
-        div2.innerHTML += `<span class="nomeproduto">${produto.nome}</span>: R$${(produto.quantidade * produto.preco).toFixed(2)} / R$${produto.preco} Cada <br> <hr>`
-    })
+    });
     
-    console.log(totalPorCategoria)
+    let conteudo = divTotalCategoria.querySelector('h2').outerHTML;
+    
+    for (let categoria in totalPorCategoria) {
+        let nomeCategoria = categoria === "fruta" ? "FRUTAS" : 
+                           categoria === "bebida" ? "BEBIDAS" : 
+                           "ALIMENTOS";
+        conteudo += `<div class="categoria-item" style="margin: 10px 0;">
+            <strong style="font-size: 1.1em;">${nomeCategoria}</strong>: 
+            R$${totalPorCategoria[categoria].toFixed(2)}
+        </div><hr>`;
+    }
+    
+    conteudo += `<div class="total-geral" style="margin-top: 10px; font-weight: bold; font-size: 1.2em;">
+        TOTAL GERAL DO ESTOQUE: R$${totalGeral.toFixed(2)}
+    </div>`;
+    
+    divTotalCategoria.innerHTML = conteudo;
 }
 
-BtnCalculaTotal.addEventListener('click', function () {
-    calcularValorTotalPorCategoria();
-});
+// Adicionando os event listeners (com verificação de existência)
+if (btnListagem) {
+    btnListagem.addEventListener('click', listarProdutos);
+} else {
+    console.error('Botão BtnListagem não encontrado');
+}
 
-quantidadeProdutos();
+if (btnListagemRepo) {
+    btnListagemRepo.addEventListener('click', listarReposicao);
+} else {
+    console.error('Botão BtnListagemRepo não encontrado');
+}
+
+if (btnListagemPromo) {
+    btnListagemPromo.addEventListener('click', listarPromocao);
+} else {
+    console.error('Botão BtnListagemPromo não encontrado');
+}
+
+if (btnCalculaTotalUnidade) {
+    btnCalculaTotalUnidade.addEventListener('click', calcularValorTotalPorUnidade);
+} else {
+    console.error('Botão BtnCalculaTotalUnidade não encontrado');
+}
+
+if (btnCalculaTotalCategoria) {
+    btnCalculaTotalCategoria.addEventListener('click', calcularValorTotalPorCategoria);
+} else {
+    console.error('Botão calcularValorTotalPorCategoria não encontrado');
+}
+
+// Inicialização: mostrar listagem de reposição por padrão
+listarReposicao();
