@@ -1,6 +1,6 @@
 # Analisador de Estoque
 
-![Status](https://img.shields.io/badge/status-em%20desenvolvido-green)
+![Status](https://img.shields.io/badge/status-desenvolvido-green)
 ![Licença](https://img.shields.io/badge/license-MIT-green)
 
 ## Descrição
